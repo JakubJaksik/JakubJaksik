@@ -1,1 +1,1 @@
-# temporarily under construction
+# several implementations of cryptographic algorithms performed during studies
