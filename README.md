@@ -4,7 +4,8 @@
 
 **Blockchain & low-latency systems.** Blockchain engineer in high-frequency trading, working across
 Solana and EVM in Rust and TypeScript. Cryptography is where I trained and where my research goes now:
-post-quantum lattices and zero-knowledge proofs. Part engineer, part researcher.
+post-quantum lattices and zero-knowledge proofs. Part engineer, part researcher, working hand in hand
+with agentic AI.
 
 ![Rust](https://img.shields.io/badge/Rust-000?style=flat-square&logo=rust&logoColor=fff)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=fff)
@@ -12,6 +13,7 @@ post-quantum lattices and zero-knowledge proofs. Part engineer, part researcher.
 ![EVM](https://img.shields.io/badge/EVM-3C3C3D?style=flat-square&logo=ethereum&logoColor=fff)
 ![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=fff)
 ![Verilog](https://img.shields.io/badge/Verilog%20%2F%20FPGA-1a1a1a?style=flat-square)
+![Agentic AI](https://img.shields.io/badge/Agentic%20AI-Claude%20%C2%B7%20ChatGPT%2FCodex-6E8BFF?style=flat-square)
 
 ### [ &nbsp;&raquo;&nbsp; View the portfolio &nbsp;&#8599;&nbsp; ](https://JakubJaksik.github.io/JakubJaksik/)
 
@@ -58,6 +60,8 @@ the implementations I built along the way.
 Cryptology grad · engineer & researcher · occasional macro photographer
 
 [github.com/JakubJaksik](https://github.com/JakubJaksik) &nbsp;·&nbsp; [jakubjaksik@outlook.com](mailto:jakubjaksik@outlook.com)
+
+<br />This profile and portfolio were built with an agentic AI coding assistant (Claude, ChatGPT/Codex).
 
 </sub>
 </div>
