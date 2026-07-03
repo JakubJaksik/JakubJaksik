@@ -1,4 +1,4 @@
-/* Jakub Jaksik — portfolio interactions
+/* Jakub Jaksik, portfolio interactions
    1. hero lattice: a drifting point lattice with a highlighted short basis vector
    2. scroll reveal
    3. active section in nav
@@ -50,7 +50,7 @@
         }
       }
 
-      // a highlighted short basis vector from the origin — the lattice motif
+      // a highlighted short basis vector from the origin: the lattice motif
       var b1x = SPACING, b1y = -SPACING; // (1,-1) basis-ish direction
       ctx.lineWidth = 1;
       ctx.strokeStyle = "rgba(166,184,255,0.34)";

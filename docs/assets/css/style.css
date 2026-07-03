@@ -1,5 +1,5 @@
 /* ============================================================
-   Jakub Jaksik — portfolio
+   Jakub Jaksik, portfolio
    Quant-lab / lattice. Near-monochrome dark, one cool accent.
    Space Grotesk (display) · IBM Plex Sans (body) · IBM Plex Mono (data)
    ============================================================ */
@@ -16,7 +16,7 @@
   --dim:       #9a9ea6;
   --mute:      #5e626b;
 
-  --accent:    #6e8bff;   /* periwinkle — used sparingly */
+  --accent:    #6e8bff;   /* periwinkle, used sparingly */
   --accent-lt: #a6b8ff;
   --accent-dk: #43539c;
 
@@ -198,7 +198,7 @@ a:hover { color: var(--accent-lt); }
 }
 .card:hover .go { color: var(--accent); }
 
-/* feature card — wider, highlighted */
+/* feature card, wider + highlighted */
 .card.feature { grid-column: 1 / -1; padding: 28px; }
 .card.feature::before {
   content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
