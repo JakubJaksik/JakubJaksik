@@ -11,9 +11,9 @@ with agentic AI.
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=fff)
 ![Solana](https://img.shields.io/badge/Solana-000?style=flat-square&logo=solana&logoColor=14F195)
 ![EVM](https://img.shields.io/badge/EVM-3C3C3D?style=flat-square&logo=ethereum&logoColor=fff)
+![Agentic AI](https://img.shields.io/badge/Agentic%20AI-Claude%20%C2%B7%20ChatGPT%2FCodex-6E8BFF?style=flat-square)
 ![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=fff)
 ![Verilog](https://img.shields.io/badge/Verilog%20%2F%20FPGA-1a1a1a?style=flat-square)
-![Agentic AI](https://img.shields.io/badge/Agentic%20AI-Claude%20%C2%B7%20ChatGPT%2FCodex-6E8BFF?style=flat-square)
 
 ### [ &nbsp;&raquo;&nbsp; View the portfolio &nbsp;&#8599;&nbsp; ](https://JakubJaksik.github.io/JakubJaksik/)
 
