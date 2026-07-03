@@ -41,28 +41,46 @@
           var dx = px - originX, dy = py - originY;
           var dist = Math.sqrt(dx * dx + dy * dy);
           // points fade with distance from the origin -> a soft focus
-          var a = Math.max(0, 0.42 - dist / (w * 0.9));
+          var a = Math.max(0, 0.52 - dist / (w * 0.98));
           if (a <= 0.01) continue;
           ctx.beginPath();
           ctx.arc(px, py, DOT, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(110,139,255," + a.toFixed(3) + ")";
+          ctx.fillStyle = "rgba(120,148,255," + a.toFixed(3) + ")";
           ctx.fill();
         }
       }
 
-      // a highlighted short basis vector from the origin: the lattice motif
-      var b1x = SPACING, b1y = -SPACING; // (1,-1) basis-ish direction
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = "rgba(166,184,255,0.34)";
+      // a marked fundamental cell: two short basis vectors b1, b2 and the
+      // parallelogram they span. The lattice motif, kept faint.
+      var Ox = originX + ox, Oy = originY + oy;
+      var b1x = SPACING, b1y = -SPACING;   // (1,-1)
+      var b2x = SPACING, b2y = SPACING;    // (1, 1)
+      // filled cell
       ctx.beginPath();
-      ctx.moveTo(originX + ox, originY + oy);
-      ctx.lineTo(originX + ox + b1x, originY + oy + b1y);
-      ctx.stroke();
-      // node at the vector tip
-      ctx.beginPath();
-      ctx.arc(originX + ox + b1x, originY + oy + b1y, 2.4, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(166,184,255,0.7)";
+      ctx.moveTo(Ox, Oy);
+      ctx.lineTo(Ox + b1x, Oy + b1y);
+      ctx.lineTo(Ox + b1x + b2x, Oy + b1y + b2y);
+      ctx.lineTo(Ox + b2x, Oy + b2y);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(110,139,255,0.05)";
       ctx.fill();
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "rgba(166,184,255,0.30)";
+      ctx.stroke();
+      // the two basis vectors, drawn a touch brighter
+      ctx.strokeStyle = "rgba(166,184,255,0.55)";
+      ctx.beginPath();
+      ctx.moveTo(Ox, Oy); ctx.lineTo(Ox + b1x, Oy + b1y);
+      ctx.moveTo(Ox, Oy); ctx.lineTo(Ox + b2x, Oy + b2y);
+      ctx.stroke();
+      // nodes: origin and the two basis tips
+      var tips = [[Ox, Oy, 2.6], [Ox + b1x, Oy + b1y, 2.2], [Ox + b2x, Oy + b2y, 2.2]];
+      for (var n = 0; n < tips.length; n++) {
+        ctx.beginPath();
+        ctx.arc(tips[n][0], tips[n][1], tips[n][2], 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(166,184,255,0.78)";
+        ctx.fill();
+      }
 
       if (!reduced) { t += 16; raf = requestAnimationFrame(draw); }
     }
