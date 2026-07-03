@@ -45,8 +45,7 @@ Trading pulled me onto Solana and EVM. No strategies here, just the plumbing, in
 
 | Project | What it is | Stack | Status |
 |---|---|---|---|
-| **[solana-sender-analysis](https://JakubJaksik.github.io/solana-sender-analysis/)** | A measurement study: 17 transaction senders raced head to head, 380k timed attempts, latency in Proof-of-History ticks. The finding: the *fastest* sender is not the one that wins; inclusion is a routing and peering problem. Full illustrated write-up. | Rust + Python | ✅ published |
-| **[solana-test](https://github.com/JakubJaksik/solana-test)** | The toolkit behind the study, a Cargo workspace: a validator-to-location leader map, a ShredStream vs Yellowstone entry comparator, tick-trigger and fan-out benches, and an EVM tx-cutoff probe. | Rust 2024 | ✅ working |
+| **[solana-sender-analysis](https://JakubJaksik.github.io/solana-sender-analysis/)** | A measurement study: 17 transaction senders raced head to head, 380k timed attempts, latency in Proof-of-History ticks. The finding: the *fastest* sender is not the one that wins; inclusion is a routing and peering problem. Rust tools for the measurement, Python for the analysis, full illustrated write-up. | Rust + Python | ✅ published |
 
 ---
 

@@ -245,22 +245,22 @@
         </div>
       </article>
 
-      <!-- solana-test -->
+      <!-- the statistics -->
       <article class="card reveal">
         <div class="card-top">
-          <h4><a href="https://github.com/JakubJaksik/solana-test">solana-test</a></h4>
-          <span class="lang">Rust</span>
+          <h4>Scored, not eyeballed</h4>
+          <span class="lang">statistics</span>
         </div>
         <p>
-          The toolkit the study is built on. A Cargo workspace of measurement crates: a per-epoch
-          <span class="m">validator &rarr; location</span> leader map, an entry comparator that matches Jito
-          ShredStream against Yellowstone gRPC to see which stream is first, tick-triggered latency and
-          fan-out benches, plus an EVM <span class="m">tx-cutoff</span> probe. Rust 2024.
+          The race is judged properly: <span class="m">Wilson</span> confidence intervals on every
+          win-rate, <span class="m">McNemar</span> for paired win and loss, a <span class="m">Bradley&#8209;Terry</span>
+          model for sender strength, and a logit for what predicts inclusion. Adding &ldquo;which sender
+          reached this leader&rdquo; lifts the fit from an R&sup2; of 0.01 to 0.40, while stake barely
+          correlates at all.
         </p>
         <div class="card-foot">
-          <span class="chip done">working</span>
-          <span class="chip">measurement tooling</span>
-          <a class="go" href="https://github.com/JakubJaksik/solana-test">repo &#8599;</a>
+          <span class="chip">rigorous inference</span>
+          <a class="go" href="https://JakubJaksik.github.io/solana-sender-analysis/#fanout">the numbers &#8599;</a>
         </div>
       </article>
 
