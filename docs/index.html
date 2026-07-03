@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jakub Jaksik — cryptography & low-latency systems</title>
+<meta name="description" content="Jakub Jaksik — Rust engineer in high-frequency trading. Cryptographic primitives on FPGA and in software, Solana transaction-inclusion research, post-quantum lattices and zero-knowledge proofs." />
+<meta name="author" content="Jakub Jaksik" />
+<meta property="og:title" content="Jakub Jaksik" />
+<meta property="og:description" content="Cryptography and low-latency systems in Rust. FPGA ciphers, Solana inclusion research, post-quantum lattices and ZK." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <span class="nav-brand"><span class="sq"></span>jakub jaksik</span>
+    <div class="nav-links">
+      <a href="#cryptography">Cryptography</a>
+      <a href="#blockchain">Blockchain</a>
+      <a href="#about">About</a>
+    </div>
+    <a class="nav-gh" href="https://github.com/JakubJaksik">GitHub&nbsp;&#8599;</a>
+  </div>
+</nav>
+
+<!-- ============================================ HERO -->
+<header class="hero">
+  <canvas id="lattice" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <p class="eyebrow"><span class="sq"></span>Cryptography &amp; low-latency systems</p>
+    <h1>Jakub Jaksik<br /><span class="thin">I build things that have to be fast<br />and things that have to be correct.</span></h1>
+    <p class="lede">
+      Rust engineer in <b>high-frequency trading</b>. Off the clock it's cryptography &mdash; block
+      ciphers and hash functions taken down to the gate level on <b>FPGA</b>, a measurement study of how
+      transactions actually land on <b>Solana</b>, and, lately, <b>post-quantum lattices</b> and
+      <b>zero-knowledge proofs</b>.
+    </p>
+    <div class="tags">
+      <span class="tag">Rust</span>
+      <span class="tag">Verilog / FPGA</span>
+      <span class="tag">Solana &amp; EVM</span>
+      <span class="tag">C++</span>
+      <span class="tag">Post-quantum &amp; ZK</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================ CRYPTOGRAPHY -->
+<section id="cryptography" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="idx">01</span><span>Cryptography</span><span class="rule"></span></div>
+      <h2>Primitives, from the paper to the gate</h2>
+      <p class="sec-lede">
+        A cryptology degree left me with a habit: when I want to understand a cipher I implement it, and
+        when I can, I put it on hardware. Below are the ones I've built from the specification &mdash; some
+        in software, some as synthesizable Verilog &mdash; and the research I'm working through now.
+      </p>
+    </div>
+
+    <div class="subhead reveal">
+      <h3>Implementations &amp; hardware</h3>
+      <span class="note">built from spec &middot; C++ &amp; Verilog</span>
+    </div>
+
+    <div class="grid">
+      <!-- FEATURE: AES-XTS -->
+      <article class="card feature reveal">
+        <p class="feature-flag">Hardware &middot; the one I'm proudest of</p>
+        <div class="feature-body">
+          <div>
+            <div class="card-top">
+              <h4><a href="https://github.com/JakubJaksik/AES-XTS-256">AES-XTS-256</a></h4>
+            </div>
+            <p>
+              A full <span class="m">AES-256 in XTS mode</span> in synthesizable Verilog for the Intel
+              Cyclone&nbsp;V. The whole datapath is there: the key schedule, encrypt and decrypt rounds,
+              the XTS tweak layer with <span class="m">&alpha;-multiplication in GF(2<sup>128</sup>)</span>,
+              a control FSM sequencing the block pipeline, and self-checking testbenches. XTS is the mode
+              disk encryption uses, so correctness on the last, partial block matters &mdash; that's handled
+              too. It met timing on the Cyclone&nbsp;V with room to spare.
+            </p>
+            <div class="card-foot">
+              <span class="chip done">complete</span>
+              <span class="chip">disk-sector encryption</span>
+              <a class="go" href="https://github.com/JakubJaksik/AES-XTS-256">read the HDL &#8599;</a>
+            </div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><span class="v">AES&#8209;256<span class="u">/XTS</span></span><span class="k">cipher &amp; mode</span></div>
+            <div class="metric"><span class="v">GF(2<sup>128</sup>)</span><span class="k">tweak arithmetic</span></div>
+            <div class="metric"><span class="v">57</span><span class="k">Verilog modules</span></div>
+            <div class="metric"><span class="v">Cyclone&nbsp;V</span><span class="k">target FPGA · Quartus</span></div>
+            <div class="metric"><span class="v">enc + dec</span><span class="k">full datapath, tested</span></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- eddsa -->
+      <article class="card reveal">
+        <div class="card-top">
+          <h4><a href="https://github.com/JakubJaksik/eddsa-verilog">eddsa-verilog</a></h4>
+          <span class="lang">Verilog</span>
+        </div>
+        <p>
+          <span class="m">Ed25519 signatures on FPGA.</span> A Quartus project for the Cyclone&nbsp;V that
+          takes EdDSA &mdash; twisted-Edwards curve arithmetic and all &mdash; onto hardware. My most recent
+          RTL work, and the one that pulled me from ciphers toward public-key and, from there, post-quantum.
+        </p>
+        <div class="card-foot">
+          <span class="chip done">working</span>
+          <span class="chip">public-key · FPGA</span>
+          <a class="go" href="https://github.com/JakubJaksik/eddsa-verilog">repo &#8599;</a>
+        </div>
+      </article>
+
+      <!-- BLAKE3 -->
+      <article class="card reveal">
+        <div class="card-top">
+          <h4><a href="https://github.com/JakubJaksik/BLAKE3">BLAKE3</a></h4>
+          <span class="lang">C++</span>
+        </div>
+        <p>
+          The <span class="m">BLAKE3 hash</span> implemented straight from the specification &mdash; the
+          chunk tree, parent-node compression and extendable output, not just the round function. Checked
+          against the official test vectors.
+        </p>
+        <div class="card-foot">
+          <span class="chip done">complete</span>
+          <span class="chip">hash · tree mode</span>
+          <a class="go" href="https://github.com/JakubJaksik/BLAKE3">repo &#8599;</a>
+        </div>
+      </article>
+
+      <!-- PRESENT -->
+      <article class="card reveal">
+        <div class="card-top">
+          <h4><a href="https://github.com/JakubJaksik/PRESENT_IMPL">PRESENT</a></h4>
+          <span class="lang">C++</span>
+        </div>
+        <p>
+          <span class="m">PRESENT</span>, the lightweight block cipher (ISO/IEC&nbsp;29192-2): an 80-bit
+          key, 31 rounds, a 4-bit S-box and a pure bit permutation. A small, clean study in how much
+          security you can get from very little silicon.
+        </p>
+        <div class="card-foot">
+          <span class="chip done">complete</span>
+          <span class="chip">lightweight cipher</span>
+          <a class="go" href="https://github.com/JakubJaksik/PRESENT_IMPL">repo &#8599;</a>
+        </div>
+      </article>
+
+      <!-- Grostl -->
+      <article class="card reveal">
+        <div class="card-top">
+          <h4><a href="https://github.com/JakubJaksik/Grostl">Gr&oslash;stl</a></h4>
+          <span class="lang">Rust</span>
+        </div>
+        <p>
+          The <span class="m">Gr&oslash;stl</span> hash &mdash; a SHA-3 finalist &mdash; with its two
+          AES-flavoured permutations P and Q over GF(2<sup>8</sup>). My first crypto in Rust; the language
+          I've written everything in since. Still a work in progress.
+        </p>
+        <div class="card-foot">
+          <span class="chip wip">work in progress</span>
+          <span class="chip">SHA-3 finalist</span>
+          <a class="go" href="https://github.com/JakubJaksik/Grostl">repo &#8599;</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="subhead reveal">
+      <h3>Research</h3>
+      <span class="note">current focus &middot; repos landing soon</span>
+    </div>
+
+    <div class="reveal">
+      <div class="rline">
+        <span class="rnode"></span>
+        <div class="rmeta">
+          <h4>Lattice-based post-quantum cryptography</h4>
+          <p>Working through the lattice problems the next generation of crypto rests on &mdash; SIS/LWE, reductions, and the schemes built on them.</p>
+        </div>
+        <span class="chip soon">in progress</span>
+      </div>
+      <div class="rline">
+        <span class="rnode"></span>
+        <div class="rmeta">
+          <h4>Zero-knowledge proofs</h4>
+          <p>Proving a statement without revealing why it's true &mdash; the machinery, and where it meets the chains below.</p>
+        </div>
+        <span class="chip soon">in progress</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ BLOCKCHAIN -->
+<section id="blockchain" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="idx">02</span><span>Blockchain</span><span class="rule"></span></div>
+      <h2>Where the cryptography meets the wire</h2>
+      <p class="sec-lede">
+        Trading pulled me onto Solana and EVM, and the questions I care about there are the same ones I
+        care about in hardware: what actually happens, measured, at the lowest level. No strategies here
+        &mdash; just the plumbing, instrumented.
+      </p>
+    </div>
+
+    <div class="grid">
+      <!-- FEATURE: solana-sender-analysis -->
+      <article class="card feature reveal">
+        <p class="feature-flag">Measurement study &middot; live write-up</p>
+        <div class="feature-body">
+          <div>
+            <div class="card-top">
+              <h4><a href="https://JakubJaksik.github.io/solana-sender-analysis/">solana-sender-analysis</a></h4>
+            </div>
+            <p>
+              How does a transaction <em>actually</em> get into a Solana block? I raced seventeen transaction
+              senders head to head with synthetic self-transfers, timed everything in Proof-of-History ticks
+              rather than noisy wall-clock, and ran the statistics properly. The result surprised me: the
+              fastest sender is <span class="m">not</span> the one that wins. Inclusion is a routing and
+              peering problem, decided per data-center and per leader &mdash; not on the wire. Rust tools for
+              the measurement, Python for the analysis, and a full illustrated write-up.
+            </p>
+            <div class="card-foot">
+              <span class="chip done">published</span>
+              <span class="chip">Rust + Python</span>
+              <a class="go" href="https://JakubJaksik.github.io/solana-sender-analysis/">read the study &#8599;</a>
+            </div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><span class="v">17</span><span class="k">senders raced head&#8209;to&#8209;head</span></div>
+            <div class="metric"><span class="v">380,596</span><span class="k">timed send attempts</span></div>
+            <div class="metric"><span class="v">13.7<span class="u">M</span></span><span class="k">matched shred-entries</span></div>
+            <div class="metric"><span class="v">21<span class="u">ticks</span></span><span class="k">median inclusion distance</span></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- solana-test -->
+      <article class="card reveal">
+        <div class="card-top">
+          <h4><a href="https://github.com/JakubJaksik/solana-test">solana-test</a></h4>
+          <span class="lang">Rust</span>
+        </div>
+        <p>
+          The toolkit the study is built on. A Cargo workspace of measurement crates: a per-epoch
+          <span class="m">validator &rarr; location</span> leader map, an entry comparator that matches Jito
+          ShredStream against Yellowstone gRPC to see which stream is first, tick-triggered latency and
+          fan-out benches, plus an EVM <span class="m">tx-cutoff</span> probe. Rust 2024.
+        </p>
+        <div class="card-foot">
+          <span class="chip done">working</span>
+          <span class="chip">measurement tooling</span>
+          <a class="go" href="https://github.com/JakubJaksik/solana-test">repo &#8599;</a>
+        </div>
+      </article>
+
+      <!-- companion card: the flagship's charts / method -->
+      <article class="card reveal">
+        <div class="card-top">
+          <h4>Why ticks, not milliseconds</h4>
+          <span class="lang">method</span>
+        </div>
+        <p>
+          Clocks drift and &ldquo;on chain&rdquo; is fuzzy when you only see your own copy of the stream.
+          Proof-of-History is a hash chain the leader ticks forward at a near-constant rate, so the chain
+          itself becomes a ruler every observer agrees on. Measuring inclusion in <span class="m">ticks and
+          hashes</span> gives a deterministic distance with no clock sync &mdash; the honest number.
+        </p>
+        <div class="card-foot">
+          <span class="chip">Proof-of-History</span>
+          <a class="go" href="https://JakubJaksik.github.io/solana-sender-analysis/#latency">the ruler &#8599;</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ ABOUT -->
+<section id="about" class="sec about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-kicker"><span class="idx">03</span><span>About</span><span class="rule"></span></div>
+    </div>
+    <div class="reveal">
+      <p>
+        I studied cryptology and cybersecurity, and I've spent the years since chasing the two things that
+        degree turned into obsessions: making systems <b>correct</b> and making them <b>fast</b>. These days
+        that's Rust in a high-frequency trading firm, block ciphers on FPGAs when I get the chance, and a
+        slow read through post-quantum lattices and zero-knowledge proofs.
+      </p>
+      <p>
+        When I put the keyboard down I usually pick up a camera and shoot <b>macro</b> &mdash; the same
+        pull toward detail, just pointed at something that isn't a hash function for once.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-in">
+      <a href="https://github.com/JakubJaksik">github.com/JakubJaksik</a>
+      <a href="mailto:jakubjaksik@outlook.com">jakubjaksik@outlook.com</a>
+      <span class="sig">built by hand · no template</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
