@@ -3,11 +3,11 @@
 # Jakub Jaksik
 
 **Blockchain & low-latency systems.** Blockchain engineer in high-frequency trading, working across
-Solana and EVM in TypeScript and Rust. Cryptography is where I trained and where my research goes now:
+Solana and EVM in Rust and TypeScript. Cryptography is where I trained and where my research goes now:
 post-quantum lattices and zero-knowledge proofs. Part engineer, part researcher.
 
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=fff)
 ![Rust](https://img.shields.io/badge/Rust-000?style=flat-square&logo=rust&logoColor=fff)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=fff)
 ![Solana](https://img.shields.io/badge/Solana-000?style=flat-square&logo=solana&logoColor=14F195)
 ![EVM](https://img.shields.io/badge/EVM-3C3C3D?style=flat-square&logo=ethereum&logoColor=fff)
 ![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=fff)
